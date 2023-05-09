@@ -17,20 +17,35 @@ export const Authentication = () => {
 	const [signupPassword, setsignupPassword] = useState("");
 	const [verifysignupPassword, setverifysignupPassword] = useState("");
 	const handleLogin = async () => {
-		let res = await axios.post(`https://lastmanagement.onrender.com/login`, {
-			email: loginEmail,
-			password: loginPassword,
-		});
+	try {
+        	let res = await axios.post(
+						`https://lastmanagement.onrender.com/login`,
+						{
+							email: loginEmail,
+							password: loginPassword,
+						},
+					);
 
-		console.log(res);
+					if ((res.status = 200)) {
+						alert("login success");
+					}
+    } catch (error) {
+        alert("something went wrong");
+    }
 	};
 	const handleSignup = async () => {
-		let res = await axios.post("https://lastmanagement.onrender.com/signup", {
-			email: signupEmail,
-			password: signupPassword,
-			confirm_password: verifysignupPassword,
-		});
-		console.log(res);
+		try {
+			let res = await axios.post("https://lastmanagement.onrender.com/signup", {
+				email: signupEmail,
+				password: signupPassword,
+				confirm_password: verifysignupPassword,
+			});
+			if (res.status === 200) {
+				alert("user created");
+			}
+		} catch (error) {
+			alert("something went wrong");
+		}
 	};
 	return (
 		<Box
